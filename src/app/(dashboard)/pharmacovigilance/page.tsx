@@ -3,7 +3,7 @@
 import { useStore } from "@/lib/store";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
-import { AlertOctagon, PulseCon } from "lucide-react";
+import { AlertOctagon } from "lucide-react";
 
 export default function PharmacovigilancePage() {
   const safetyEvents = useStore((state) => state.safetyEvents);
@@ -45,7 +45,7 @@ export default function PharmacovigilancePage() {
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(value: number) => [`${value} Events`, 'Count']}
+                  formatter={(value: any) => [`${value} Events`, 'Count']}
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend verticalAlign="bottom" height={36} />

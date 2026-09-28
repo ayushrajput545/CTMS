@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { CheckCircle2, ShieldCheck, Search, Download } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Search, Download, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -30,7 +30,7 @@ export default function ReportsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {[
           { label: "Total Reports", value: "24", icon: ShieldCheck },
-          { label: "Pending Generation", value: "3", icon: Clock => (<div></div>) }, // Using generic since not imported
+          { label: "Pending Generation", value: "3", icon: Clock },
           { label: "Custom Templates", value: "8", icon: ShieldCheck },
           { label: "Scheduled Runs", value: "12", icon: ShieldCheck },
         ].map((stat, i) => (
