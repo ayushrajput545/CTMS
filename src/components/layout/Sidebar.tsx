@@ -3,26 +3,13 @@
 import { useStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import {
-    LayoutDashboard,
-    Users,
-    Building2,
-    UserSquare2,
-    LineChart,
-    CalendarCheck,
-    ShieldAlert,
-    Activity,
-    FileCheck2,
-    Database,
-    BarChart3,
-    History,
-    Settings,
-    LogOut,
-    Leaf
+    LayoutDashboard, Users, Building2, UserSquare2, LineChart, CalendarCheck,
+    ShieldAlert, Activity, FileCheck2, Database, BarChart3, History, LogOut, Leaf
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-export function Sidebar() {
+export function SidebarContent({ onMobileClose }: { onMobileClose?: () => void }) {
     const currentUser = useStore((state) => state.currentUser);
     const logout = useStore((state) => state.logout);
     const pathname = usePathname();
@@ -33,8 +20,9 @@ export function Sidebar() {
     const role = currentUser.role;
 
     const handleLogout = () => {
+        if (onMobileClose) onMobileClose();
         logout();
-        router.push("/login"); // Fixed router call here
+        router.push("/login");
     };
 
     const navGroups = [
@@ -84,9 +72,9 @@ export function Sidebar() {
     ];
 
     return (
-        <div className="w-64 bg-slate-900 h-screen flex flex-col text-slate-300 border-r border-slate-800 flex-shrink-0">
+        <div className="flex flex-col h-full bg-slate-900 text-slate-300">
             {/* Brand */}
-            <div className="h-16 flex items-center px-6 border-b border-slate-800 space-x-3 bg-slate-950/50">
+            <div className="h-16 flex items-center px-6 border-b border-slate-800 space-x-3 bg-slate-950/50 shrink-0">
                 <Leaf className="w-6 h-6 text-emerald-500" />
                 <span className="text-xl font-bold tracking-tight text-white">AYUSETU</span>
             </div>
@@ -108,6 +96,7 @@ export function Sidebar() {
                                     <Link
                                         key={item.name}
                                         href={item.href}
+                                        onClick={() => { if (onMobileClose) onMobileClose(); }}
                                         className={cn(
                                             "flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
                                             isActive
@@ -126,7 +115,7 @@ export function Sidebar() {
             </div>
 
             {/* User Profile Footer */}
-            <div className="p-4 border-t border-slate-800 bg-slate-950/30 space-y-4">
+            <div className="p-4 border-t border-slate-800 bg-slate-950/30 space-y-4 shrink-0">
                 <div className="flex items-center space-x-3 text-sm">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
                         {currentUser.name.charAt(0)}
@@ -144,6 +133,14 @@ export function Sidebar() {
                     <span>Log out</span>
                 </button>
             </div>
+        </div>
+    );
+}
+
+export function Sidebar() {
+    return (
+        <div className="hidden md:flex w-64 h-screen flex-col border-r border-slate-800 flex-shrink-0">
+            <SidebarContent />
         </div>
     );
 }
